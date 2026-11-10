@@ -1,0 +1,1414 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-11-06T22:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "wrk_vagaviva",
+      "_type": "workspace",
+      "parentId": null,
+      "name": "Vaga Viva API",
+      "description": "Coleção da API da Vaga Viva (GS 2026/2)",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_vagaviva",
+      "_type": "environment",
+      "parentId": "wrk_vagaviva",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "token": "",
+        "senha": ""
+      }
+    },
+    {
+      "_id": "fld_2",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "0. Status"
+    },
+    {
+      "_id": "req_001",
+      "_type": "request",
+      "parentId": "fld_2",
+      "name": "API no ar",
+      "method": "GET",
+      "url": "{{ _.base_url }}/",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1
+    },
+    {
+      "_id": "fld_4",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "1. Unidades"
+    },
+    {
+      "_id": "req_002",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Listar",
+      "method": "GET",
+      "url": "{{ _.base_url }}/unidades",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 2,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_003",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Buscar por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/unidades/1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 3,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_004",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Cadastrar (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/unidades",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"UBS Parque Sul\",\n  \"endereco\": \"Rua das Flores, 50\",\n  \"bairro\": \"Parque Sul\",\n  \"cidade\": \"São Paulo\",\n  \"telefone\": \"1131110004\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 4,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_005",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Atualizar",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/unidades/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"UBS Centro\",\n  \"endereco\": \"Rua XV de Novembro, 120\",\n  \"bairro\": \"Centro\",\n  \"cidade\": \"São Paulo\",\n  \"telefone\": \"1131110001\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 5,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_006",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Remover com profissionais (409)",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/unidades/1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 6,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_007",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Fila da unidade (aninhada)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/unidades/1/lista-espera?especialidade=1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 7,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_008",
+      "_type": "request",
+      "parentId": "fld_4",
+      "name": "Profissionais da unidade (aninhada)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/unidades/1/profissionais",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 8,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "fld_12",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "2. Especialidades"
+    },
+    {
+      "_id": "req_009",
+      "_type": "request",
+      "parentId": "fld_12",
+      "name": "Listar",
+      "method": "GET",
+      "url": "{{ _.base_url }}/especialidades",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 9,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_010",
+      "_type": "request",
+      "parentId": "fld_12",
+      "name": "Buscar por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/especialidades/1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 10,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_011",
+      "_type": "request",
+      "parentId": "fld_12",
+      "name": "Cadastrar (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/especialidades",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Odontologia\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 11,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_012",
+      "_type": "request",
+      "parentId": "fld_12",
+      "name": "Nome repetido (409)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/especialidades",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Pediatria\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 12,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "fld_17",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "3. Profissionais"
+    },
+    {
+      "_id": "req_013",
+      "_type": "request",
+      "parentId": "fld_17",
+      "name": "Listar",
+      "method": "GET",
+      "url": "{{ _.base_url }}/profissionais",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 13,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_014",
+      "_type": "request",
+      "parentId": "fld_17",
+      "name": "Filtrar por unidade e especialidade",
+      "method": "GET",
+      "url": "{{ _.base_url }}/profissionais?unidade=1&especialidade=1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 14,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_015",
+      "_type": "request",
+      "parentId": "fld_17",
+      "name": "Buscar por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/profissionais/1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 15,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_016",
+      "_type": "request",
+      "parentId": "fld_17",
+      "name": "Cadastrar com especialidades N:N (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/profissionais",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"unidadeId\": 3,\n  \"nome\": \"Marina Alves\",\n  \"registro\": \"CRM-SP 789012\",\n  \"categoria\": \"MEDICO\",\n  \"especialidadeIds\": [\n    1,\n    4\n  ]\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 16,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_017",
+      "_type": "request",
+      "parentId": "fld_17",
+      "name": "Categoria inválida (400)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/profissionais",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"unidadeId\": 3,\n  \"nome\": \"Teste\",\n  \"registro\": \"CRM-SP 1\",\n  \"categoria\": \"DENTISTA\",\n  \"especialidadeIds\": []\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 17,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_018",
+      "_type": "request",
+      "parentId": "fld_17",
+      "name": "Agenda do profissional (aninhada)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/profissionais/1/consultas?data=2026-11-19",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 18,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "fld_24",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "4. Pacientes"
+    },
+    {
+      "_id": "req_019",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Listar",
+      "method": "GET",
+      "url": "{{ _.base_url }}/pacientes",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 19,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_020",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Buscar por nome",
+      "method": "GET",
+      "url": "{{ _.base_url }}/pacientes?nome=ana",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 20,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_021",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Buscar por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/pacientes/1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 21,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_022",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Id inexistente (404)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/pacientes/9999",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 22,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_023",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Cadastrar (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/pacientes",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Helena Duarte\",\n  \"cartaoSus\": \"700000000000099\",\n  \"dataNascimento\": \"1985-05-10\",\n  \"telefone\": \"11990000099\",\n  \"bairro\": \"Centro\",\n  \"canalContato\": \"WHATSAPP\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 23,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_024",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Dados inválidos (400)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/pacientes",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"\",\n  \"cartaoSus\": \"123\",\n  \"dataNascimento\": \"2030-01-01\",\n  \"telefone\": \"abc\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 24,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_025",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Cartão SUS repetido (409)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/pacientes",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Outra Pessoa\",\n  \"cartaoSus\": \"700000000000001\",\n  \"dataNascimento\": \"1990-01-01\",\n  \"telefone\": \"11990000098\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 25,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_026",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Atualizar",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/pacientes/9",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Fernanda Lima\",\n  \"cartaoSus\": \"700000000000009\",\n  \"dataNascimento\": \"2000-12-01\",\n  \"telefone\": \"11990000009\",\n  \"bairro\": \"Jardim Norte\",\n  \"canalContato\": \"SMS\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 26,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_027",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Remover paciente com consultas (409, RN08)",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/pacientes/1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 27,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_028",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Consultas do paciente (aninhada)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/pacientes/2/consultas",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 28,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_029",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Agendar consulta (201 + Location)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/pacientes/9/consultas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"profissionalId\": 4,\n  \"dataConsulta\": \"2026-12-10T10:30:00\",\n  \"lembrete\": true\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 29,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_030",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Horário ocupado (409, RN01)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/pacientes/9/consultas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"profissionalId\": 1,\n  \"dataConsulta\": \"2026-11-19T09:00:00\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 30,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_031",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Data no passado (400, RN02)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/pacientes/9/consultas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"profissionalId\": 1,\n  \"dataConsulta\": \"2025-01-10T08:30:00\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 31,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_032",
+      "_type": "request",
+      "parentId": "fld_24",
+      "name": "Pedidos do paciente na fila (aninhada)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/pacientes/12/lista-espera",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 32,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "fld_39",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "5. Consultas"
+    },
+    {
+      "_id": "req_033",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Agenda do dia",
+      "method": "GET",
+      "url": "{{ _.base_url }}/consultas?data=2026-11-19&unidade=1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 33,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_034",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Filtrar por status",
+      "method": "GET",
+      "url": "{{ _.base_url }}/consultas?status=FALTA",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 34,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_035",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Buscar por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/consultas/1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 35,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_036",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Remarcar (PUT)",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/consultas/6",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"profissionalId\": 2,\n  \"dataConsulta\": \"2026-11-26T10:30:00\",\n  \"lembrete\": true\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 36,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_037",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Confirmar presença",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/consultas/2/confirmar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 37,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_038",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Cancelar e ofertar à fila",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/consultas/2/cancelar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 38,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_039",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Liberar vaga (só funciona a menos de 24h da consulta)",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/consultas/5/liberar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 39,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_040",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Registrar presença (no dia da consulta ou depois)",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/consultas/3/presenca",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"compareceu\": true\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 40,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_041",
+      "_type": "request",
+      "parentId": "fld_39",
+      "name": "Método não suportado (405)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/consultas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"profissionalId\": 1\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 41,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "fld_49",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "6. Lista de espera"
+    },
+    {
+      "_id": "req_042",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Listar",
+      "method": "GET",
+      "url": "{{ _.base_url }}/lista-espera",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 42,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_043",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Fila de clínica geral da UBS Centro",
+      "method": "GET",
+      "url": "{{ _.base_url }}/lista-espera?especialidade=1&unidade=1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 43,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_044",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Buscar por id (com justificativa)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/lista-espera/2",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 44,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_045",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Incluir pedido (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/lista-espera",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"pacienteId\": 9,\n  \"especialidadeId\": 1,\n  \"unidadeId\": 2,\n  \"profissionalSolicitanteId\": 4,\n  \"classeRisco\": \"P2\",\n  \"justificativaClinica\": \"Dor abdominal recorrente há três semanas, sem sinais de alarme\",\n  \"prazoLegal\": false,\n  \"aceitaMesmoDia\": true\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 45,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_046",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Prazo legal fora da P1 (409)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/lista-espera",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"pacienteId\": 4,\n  \"especialidadeId\": 1,\n  \"unidadeId\": 1,\n  \"profissionalSolicitanteId\": 1,\n  \"classeRisco\": \"P3\",\n  \"justificativaClinica\": \"Retorno de rotina para avaliação de exames\",\n  \"prazoLegal\": true\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 46,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_047",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Paciente já na fila (409, RN09)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/lista-espera",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"pacienteId\": 12,\n  \"especialidadeId\": 1,\n  \"unidadeId\": 1,\n  \"profissionalSolicitanteId\": 1,\n  \"classeRisco\": \"P2\",\n  \"justificativaClinica\": \"Pedido duplicado para testar a regra RN09\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 47,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_048",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Atualizar",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/lista-espera/4",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"pacienteId\": 13,\n  \"especialidadeId\": 1,\n  \"unidadeId\": 1,\n  \"profissionalSolicitanteId\": 1,\n  \"classeRisco\": \"P2\",\n  \"justificativaClinica\": \"Dor lombar persistente há 2 meses, sem sinais de alerta\",\n  \"prazoLegal\": false,\n  \"aceitaMesmoDia\": true\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 48,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_049",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Aceitar oferta",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/lista-espera/1/aceitar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 49,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_050",
+      "_type": "request",
+      "parentId": "fld_49",
+      "name": "Recusar oferta",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/lista-espera/1/recusar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 50,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "fld_59",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "7. Painel"
+    },
+    {
+      "_id": "req_051",
+      "_type": "request",
+      "parentId": "fld_59",
+      "name": "Painel geral",
+      "method": "GET",
+      "url": "{{ _.base_url }}/painel",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 51,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_052",
+      "_type": "request",
+      "parentId": "fld_59",
+      "name": "Painel da UBS Centro",
+      "method": "GET",
+      "url": "{{ _.base_url }}/painel?unidade=1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 52,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "fld_62",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "8. Paciente (link com token)"
+    },
+    {
+      "_id": "req_053",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Minha consulta",
+      "method": "GET",
+      "url": "{{ _.base_url }}/publico/consultas/085daaa38ff71c3a",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 53
+    },
+    {
+      "_id": "req_054",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Confirmar pelo link",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/publico/consultas/085daaa38ff71c3a/confirmar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 54
+    },
+    {
+      "_id": "req_055",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Cancelar pelo link",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/publico/consultas/085daaa38ff71c3a/cancelar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 55
+    },
+    {
+      "_id": "req_056",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Minha posição na fila",
+      "method": "GET",
+      "url": "{{ _.base_url }}/publico/fila/6d1e892a92fce8b8",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 56
+    },
+    {
+      "_id": "req_057",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Aceito ser chamado no mesmo dia",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/publico/fila/6d1e892a92fce8b8/mesmo-dia",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"aceita\": true\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 57
+    },
+    {
+      "_id": "req_058",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Aceitar vaga pelo link",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/publico/fila/24da014ea6be8b7f/aceitar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 58
+    },
+    {
+      "_id": "req_059",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Recusar vaga pelo link",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/publico/fila/24da014ea6be8b7f/recusar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 59
+    },
+    {
+      "_id": "req_060",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Sair da fila",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/publico/fila/74729186902d38ee/sair",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 60
+    },
+    {
+      "_id": "req_061",
+      "_type": "request",
+      "parentId": "fld_62",
+      "name": "Link inválido (404)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/publico/fila/naoexiste",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 61
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "Auth"
+    },
+    {
+      "_id": "req_a1",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login (gestão)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"marcos.andrade@saude.sp.gov.br\",\n  \"senha\": \"{{ _.senha }}\",\n  \"manterConectado\": true\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 1,
+      "authentication": {}
+    },
+    {
+      "_id": "req_a2",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login (recepção)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"regina.costa@saude.sp.gov.br\",\n  \"senha\": \"{{ _.senha }}\",\n  \"manterConectado\": false\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 1,
+      "authentication": {}
+    },
+    {
+      "_id": "req_a3",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login conta desativada (403)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"sergio.lima@saude.sp.gov.br\",\n  \"senha\": \"{{ _.senha }}\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 1,
+      "authentication": {}
+    },
+    {
+      "_id": "req_a4",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login senha errada (401)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"marcos.andrade@saude.sp.gov.br\",\n  \"senha\": \"errada\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 1,
+      "authentication": {}
+    },
+    {
+      "_id": "req_a5",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Validar convite",
+      "method": "GET",
+      "url": "{{ _.base_url }}/auth/convite/VV-4821",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {}
+    },
+    {
+      "_id": "req_a6",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Primeiro acesso",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/ativar",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"codigoConvite\": \"VV-4821\",\n  \"nome\": \"Juliana Prado\",\n  \"senha\": \"NovaSenha1\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 1,
+      "authentication": {}
+    },
+    {
+      "_id": "req_a7",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Quem está logado",
+      "method": "GET",
+      "url": "{{ _.base_url }}/auth/me",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_a8",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Logout",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/logout",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "fld_usu",
+      "_type": "request_group",
+      "parentId": "wrk_vagaviva",
+      "name": "Usuários (GESTAO)"
+    },
+    {
+      "_id": "req_u1",
+      "_type": "request",
+      "parentId": "fld_usu",
+      "name": "Listar",
+      "method": "GET",
+      "url": "{{ _.base_url }}/usuarios",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_u2",
+      "_type": "request",
+      "parentId": "fld_usu",
+      "name": "Buscar",
+      "method": "GET",
+      "url": "{{ _.base_url }}/usuarios/1",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_u3",
+      "_type": "request",
+      "parentId": "fld_usu",
+      "name": "Convidar (201)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/usuarios",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Ana Teste\",\n  \"email\": \"ana.teste@saude.sp.gov.br\",\n  \"perfil\": \"RECEPCAO\",\n  \"unidadeId\": 1\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_u4",
+      "_type": "request",
+      "parentId": "fld_usu",
+      "name": "Editar",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/usuarios/3",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Paulo Ferreira\",\n  \"email\": \"paulo.ferreira@saude.sp.gov.br\",\n  \"perfil\": \"RECEPCAO\",\n  \"unidadeId\": 1\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_u5",
+      "_type": "request",
+      "parentId": "fld_usu",
+      "name": "Remover",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/usuarios/6",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_u6",
+      "_type": "request",
+      "parentId": "fld_usu",
+      "name": "Novo convite",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/usuarios/4/convite",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_u7",
+      "_type": "request",
+      "parentId": "fld_usu",
+      "name": "Desativar",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/usuarios/3/desativar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    },
+    {
+      "_id": "req_u8",
+      "_type": "request",
+      "parentId": "fld_usu",
+      "name": "Reativar",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/usuarios/3/reativar",
+      "body": {},
+      "headers": [],
+      "metaSortKey": 1,
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      }
+    }
+  ]
+}
