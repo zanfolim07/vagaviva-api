@@ -165,7 +165,7 @@ public class ConsultaService {
         if (c.jaPassou(Relogio.agora())) {
             throw new RegraNegocioException("O horário da consulta já passou. Registre a presença ou a falta.");
         }
-        return devolverVaga(id, StatusConsulta.CANCELADA);
+        return devolverVaga(id, StatusConsulta.LIBERADA);
     }
 
     public AcaoConsultaResponse liberar(Long id) throws SQLException {
