@@ -255,8 +255,12 @@ public class ListaEsperaService {
         return dao.listarFila(e.getEspecialidade().getId(), e.getUnidade().getId()).size();
     }
 
-    public void registrarPosicaoVista(Long id, Integer posicao) throws SQLException {
-        dao.atualizarUltimaPosicao(id, posicao);
+    public Integer posicaoRegistradaEmOuAntes(Long id, java.time.LocalDate data) throws SQLException {
+        return dao.buscarPosicaoHistorica(id, data);
+    }
+
+    public void registrarPosicaoDoDia(Long id, java.time.LocalDate data, Integer posicao) throws SQLException {
+        dao.registrarPosicaoDiaria(id, data, posicao);
     }
 
     public ListaEspera obter(Long id) throws SQLException {

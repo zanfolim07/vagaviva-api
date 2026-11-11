@@ -1,6 +1,6 @@
 BEGIN
   FOR t IN (SELECT table_name FROM user_tables
-             WHERE table_name IN ('TB_OFERTA_VAGA', 'TB_LISTA_ESPERA', 'TB_CONSULTA', 'TB_USUARIO', 'TB_PACIENTE', 'TB_PROFISSIONAL_ESPECIALIDADE', 'TB_PROFISSIONAL', 'TB_ESPECIALIDADE', 'TB_UNIDADE')) LOOP
+             WHERE table_name IN ('TB_HISTORICO_POSICAO_FILA', 'TB_OFERTA_VAGA', 'TB_LISTA_ESPERA', 'TB_CONSULTA', 'TB_USUARIO', 'TB_PACIENTE', 'TB_PROFISSIONAL_ESPECIALIDADE', 'TB_PROFISSIONAL', 'TB_ESPECIALIDADE', 'TB_UNIDADE')) LOOP
     EXECUTE IMMEDIATE 'DROP TABLE ' || t.table_name || ' CASCADE CONSTRAINTS';
   END LOOP;
   FOR s IN (SELECT sequence_name FROM user_sequences
@@ -129,6 +129,16 @@ CREATE UNIQUE INDEX uk_esp_paciente_esp_ativos ON tb_lista_espera (
     CASE WHEN ds_status IN ('AGUARDANDO', 'OFERTADA') THEN cd_paciente END,
     CASE WHEN ds_status IN ('AGUARDANDO', 'OFERTADA') THEN cd_especialidade END
 );
+
+CREATE TABLE tb_historico_posicao_fila (
+    cd_espera       NUMBER(10)    CONSTRAINT nn_hist_pos_espera NOT NULL,
+    dt_referencia   DATE          CONSTRAINT nn_hist_pos_data NOT NULL,
+    nr_posicao      NUMBER(4)     CONSTRAINT nn_hist_pos_numero NOT NULL,
+    CONSTRAINT pk_hist_pos_fila PRIMARY KEY (cd_espera, dt_referencia),
+    CONSTRAINT fk_hist_pos_espera FOREIGN KEY (cd_espera)
+        REFERENCES tb_lista_espera (cd_espera) ON DELETE CASCADE
+);
+COMMENT ON TABLE tb_historico_posicao_fila IS 'Retratos diários da posição dos pedidos para calcular a variação semanal sem depender da frequência de consulta da tela.';
 
 COMMENT ON TABLE tb_lista_espera IS 'Fila de espera por especialidade e unidade, ordenada pela classe de risco do pedido e pelo tempo de espera (RN12).';
 

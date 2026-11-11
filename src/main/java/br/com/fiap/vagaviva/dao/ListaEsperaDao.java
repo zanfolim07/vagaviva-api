@@ -302,6 +302,35 @@ public class ListaEsperaDao {
         }
     }
 
+    public Integer buscarPosicaoHistorica(Long id, LocalDate dataReferencia) throws SQLException {
+        String sql = "SELECT nr_posicao FROM tb_historico_posicao_fila "
+                + "WHERE cd_espera = ? AND dt_referencia <= ? "
+                + "ORDER BY dt_referencia DESC FETCH FIRST 1 ROW ONLY";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            JdbcUtil.setData(ps, 2, dataReferencia);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getInt(1) : null;
+            }
+        }
+    }
+
+    public void registrarPosicaoDiaria(Long id, LocalDate dataReferencia, Integer posicao) throws SQLException {
+        String sql = "MERGE INTO tb_historico_posicao_fila h "
+                + "USING (SELECT ? AS cd_espera, ? AS dt_referencia, ? AS nr_posicao FROM dual) d "
+                + "ON (h.cd_espera = d.cd_espera AND h.dt_referencia = d.dt_referencia) "
+                + "WHEN NOT MATCHED THEN INSERT (cd_espera, dt_referencia, nr_posicao) "
+                + "VALUES (d.cd_espera, d.dt_referencia, d.nr_posicao)";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            JdbcUtil.setData(ps, 2, dataReferencia);
+            ps.setInt(3, posicao);
+            ps.executeUpdate();
+        }
+    }
+
     public boolean remover(Long id) throws SQLException {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("DELETE FROM tb_lista_espera WHERE cd_espera = ?")) {

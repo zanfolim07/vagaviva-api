@@ -57,8 +57,11 @@ public class PublicoService {
         r.setUnidade(e.getUnidade().getNome());
         r.setPosicao(posicao);
         r.setTotalNaFila(listaEsperaService.tamanhoDaFila(e));
-        Integer posicaoAnterior = e.getUltimaPosicao();
-        r.setVariacaoSemana(posicaoAnterior == null || posicao == null ? 0 : posicaoAnterior - posicao);
+        LocalDate hoje = Relogio.hoje();
+        Integer posicaoSemanaPassada = posicao == null
+                ? null : listaEsperaService.posicaoRegistradaEmOuAntes(e.getId(), hoje.minusDays(7));
+        r.setVariacaoSemana(posicaoSemanaPassada == null || posicao == null
+                ? 0 : posicaoSemanaPassada - posicao);
         long diasEspera = e.diasEspera(Relogio.hoje());
         r.setDiasEspera(diasEspera);
         r.setPrazoAte(e.dataLimite());
@@ -75,7 +78,7 @@ public class PublicoService {
             r.setOferta(oferta);
         }
         if (posicao != null) {
-            listaEsperaService.registrarPosicaoVista(e.getId(), posicao);
+            listaEsperaService.registrarPosicaoDoDia(e.getId(), hoje, posicao);
         }
         return r;
     }
