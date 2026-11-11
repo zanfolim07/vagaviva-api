@@ -110,7 +110,6 @@ CREATE TABLE tb_lista_espera (
     ds_token_paciente            VARCHAR2(32)  CONSTRAINT nn_esp_token NOT NULL,
     nr_ultima_posicao            NUMBER(4),
     ds_status                    VARCHAR2(10)  DEFAULT 'AGUARDANDO' CONSTRAINT nn_esp_status NOT NULL,
-    CONSTRAINT uk_esp_paciente_esp UNIQUE (cd_paciente, cd_especialidade),
     CONSTRAINT uk_esp_token UNIQUE (ds_token_paciente),
     CONSTRAINT ck_esp_classe CHECK (ds_classe_risco IN ('P1', 'P2', 'P3', 'P4')),
     CONSTRAINT ck_esp_prazo CHECK (fl_prazo_legal IN ('S', 'N')),
@@ -126,6 +125,11 @@ CREATE TABLE tb_lista_espera (
     CONSTRAINT fk_esp_pref FOREIGN KEY (cd_profissional_pref) REFERENCES tb_profissional (cd_profissional),
     CONSTRAINT fk_esp_consulta FOREIGN KEY (cd_consulta_ofertada) REFERENCES tb_consulta (cd_consulta)
 );
+CREATE UNIQUE INDEX uk_esp_paciente_esp_ativos ON tb_lista_espera (
+    CASE WHEN ds_status IN ('AGUARDANDO', 'OFERTADA') THEN cd_paciente END,
+    CASE WHEN ds_status IN ('AGUARDANDO', 'OFERTADA') THEN cd_especialidade END
+);
+
 COMMENT ON TABLE tb_lista_espera IS 'Fila de espera por especialidade e unidade, ordenada pela classe de risco do pedido e pelo tempo de espera (RN12).';
 
 CREATE TABLE tb_oferta_vaga (

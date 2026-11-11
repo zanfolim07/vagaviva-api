@@ -329,12 +329,7 @@ public class ListaEsperaService {
         Optional<String> existente = dao.statusPedidoExistente(req.getPacienteId(), req.getEspecialidadeId(),
                 ignorarEsperaId);
         if (existente.isPresent()) {
-            String status = existente.get();
-            if (ListaEspera.AGUARDANDO.equals(status) || ListaEspera.OFERTADA.equals(status)) {
-                throw new RegraNegocioException("O paciente já está na lista de espera desta especialidade (RN09).");
-            }
-            throw new RegraNegocioException("O paciente já tem um pedido " + status + " nesta especialidade. "
-                    + "Remova o pedido antigo antes de incluir um novo.");
+            throw new RegraNegocioException("O paciente já está na lista de espera desta especialidade (RN09).");
         }
 
         e.setClasseRisco(req.getClasseRisco());

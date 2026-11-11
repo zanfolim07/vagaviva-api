@@ -144,6 +144,7 @@ public class ListaEsperaDao {
     public Optional<String> statusPedidoExistente(Long pacienteId, Long especialidadeId, Long ignorarEsperaId)
             throws SQLException {
         String sql = "SELECT ds_status FROM tb_lista_espera WHERE cd_paciente = ? AND cd_especialidade = ? "
+                + "AND ds_status IN ('AGUARDANDO', 'OFERTADA') "
                 + "AND (? IS NULL OR cd_espera <> ?)";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
