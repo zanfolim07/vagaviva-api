@@ -114,14 +114,34 @@ As rotas internas exigem `Authorization: Bearer <token>`. Obtenha o token por `P
 
 O perfil `GESTAO` pode administrar os usuários da equipe. As rotas públicas para pacientes usam um token aleatório no link e não exigem login.
 
-Para entrar no ambiente de demonstração, execute `database/senhas_demo.sql` e use uma destas contas:
+Para entrar no ambiente de demonstração, execute `database/senhas_demo.sql`. A coleção `insomnia_vagaviva.json` já inclui as requisições **Login (gestão)** e **Login (recepção)** e usa as variáveis `base_url`, `senha` e `token`.
 
-| Perfil | E-mail | Senha de demonstração |
-| --- | --- | --- |
-| Gestão | `marcos.andrade@saude.sp.gov.br` | `vagaviva2026` |
-| Recepção | `regina.costa@saude.sp.gov.br` | `vagaviva2026` |
+No ambiente do Insomnia, configure `base_url` como `https://vagaviva-api.onrender.com` (ou `http://localhost:8080` para a API local) e `senha` como `vagaviva2026`. As contas de demonstração são:
 
-Essas credenciais são somente para demonstração. Não as reutilize em ambientes reais.
+| Perfil | E-mail |
+| --- | --- |
+| Gestão | `marcos.andrade@saude.sp.gov.br` |
+| Recepção | `regina.costa@saude.sp.gov.br` |
+
+### Login no Insomnia e reutilização do token
+
+1. Abra a requisição **Login (gestão)** ou **Login (recepção)** da coleção. Ela envia `POST {{ _.base_url }}/auth/login` com este JSON:
+
+   ```json
+   {
+     "email": "marcos.andrade@saude.sp.gov.br",
+     "senha": "{{ _.senha }}",
+     "manterConectado": true
+   }
+   ```
+
+   Para recepção, use `regina.costa@saude.sp.gov.br` e `"manterConectado": false`; essa requisição já está pronta na coleção.
+
+2. Envie a requisição. Na resposta `200`, copie o valor do campo `token`.
+3. Abra **Manage Environments → Base Environment** e cole esse valor em `token`, sem aspas e sem escrever `Bearer`.
+4. Salve o ambiente. As requisições protegidas da coleção já usam `{{ _.token }}` como Bearer Token; não é necessário fazer login de novo para cada rota.
+
+A sessão de gestão com `manterConectado: true` dura até 30 dias; a sessão de recepção com `false` dura até 8 horas. Depois do vencimento, repita o login e atualize a variável `token`. Essas credenciais são somente para demonstração e não devem ser reutilizadas em ambientes reais.
 
 ## Endpoints principais
 
