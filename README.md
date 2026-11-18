@@ -1,10 +1,10 @@
 # Vaga Viva · API Java
 
-API RESTful da **Vaga Viva**, solução da Global Solution 2026/2 (tema CitizenTech) da FIAP.
+API REST da **Vaga Viva**, solução CitizenTech desenvolvida para a Global Solution 2026/2 da FIAP.
 
-A Vaga Viva prevê quais consultas do SUS têm mais chance de falta e, quando uma vaga é devolvida, oferece-a ao próximo da lista de espera, pela gravidade do caso e pelo tempo de espera. Esta API guarda os dados no Oracle da FIAP, aplica as regras de negócio, consulta a IA no agendamento e é consumida pelo front-end em React.
+O sistema ajuda unidades básicas de saúde a organizar consultas, acompanhar o risco de falta e oferecer horários devolvidos a pacientes compatíveis da lista de espera. Esta API aplica as regras de negócio, persiste os dados no Oracle e integra-se ao front-end React e ao serviço de IA em Python/Flask.
 
-## Integrantes (turma 1TDSPV)
+## Integrantes · 1TDSPV
 
 | Nome | RM |
 | --- | --- |
@@ -16,219 +16,166 @@ A Vaga Viva prevê quais consultas do SUS têm mais chance de falta e, quando um
 
 ## Links
 
-- **API no Render:** https://vagaviva-api.onrender.com
-- **Vídeo (YouTube, não listado):** `[COLOCAR O LINK DO VÍDEO]`
-- **API de IA (Python/Flask):** https://vagaviva-ia.onrender.com
+- **API no Render:** <https://vagaviva-api.onrender.com>
+- **API de IA (Python/Flask):** <https://vagaviva-ia.onrender.com>
+- **Vídeo não listado:** <https://youtu.be/8T_0reS97Mg>
 
-No plano gratuito do Render, depois de um período sem uso, a primeira requisição pode levar até 2 minutos para responder.
-
-## Tecnologias
-
-O professor de Front vai precisar do login para abrir as telas internas, e o zip dele não leva o PDF técnico. Por isso, informe o e-mail e a senha de demonstração no comentário da entrega no Portal, se houver esse campo. Outra opção é acrescentar a seção de acesso só no README da cópia que vai no zip. Assim a senha não fica no GitHub público.                                                     
-✻ Worked for 38s · done 10:36 PM                                                                
-❯ nao precisa falar do email e senha pois a gente coloca no readme depois n tem problema so nao meu nome e rm
-
-  Ran 1 shell command                                                                           
-❯ no caso email e rm do banco                                                                   
-Entendido: o RM e a senha de acesso ao banco não vão para o GitHub. Conferi o Java, o front e nenhum deles tem esses dados de cone
-
-- Usuário e senha do Oracle: ficam só nas variáveis de ambiente do Render, que são privadas.  - application.properties: lê ${DB_UShum valor escrito.
-- .env.example: tem só os textos de exemplo seu_rm_aqui e sua_senha_aqui.                     - Arquivo .env: não existe nos projeria se você criasse um.
-- E-mails nos scripts SQL: são contas fictícias da demonstração (@saude.sp.gov.br), nenhum é seu.
-
-O seu RM aparece apenas na lista de integrantes dos READMEs, nos integrantes.txt, na página Integrantes do front e nos notebooks da IA. Essa lista é obrigatória no enunciado, então deve continuar. Oé o mesmo do login do Oracle, mas seo banco.
-
-Pode fazer o push dos dois READMEs e seguir para a Vercel, com VITE_API_URL =                 https://vagaviva-api.onrender.com.
-
-✻ Churned for 22s · done 10:39 PM
-
-❯ me mande o readme n0ovamente                                                                  
-Seguem os dois READMEs, sem dados de acesso ao banco. O do front está sem a seção de login de demonstração, que vocês vão colocar
-
-vagaviva-api/README.md
-
-# Vaga Viva · API Java
-
-API RESTful da **Vaga Viva**, solução da Global Solution 2026/2 (tema CitizenTech) da FIAP.
-
-A Vaga Viva prevê quais consultas do SUS têm mais chance de falta e, quando uma vaga é devolvida,
-oferece-a ao próximo da lista de esp pelo tempo de espera. Esta API guarda os dados no Oracle da FIAP, aplica as regras de negócio, consulta a IA no agendamento e é consumida pelo front-end em React.
-
-## Integrantes (turma 1TDSPV)
-
-| Nome | RM |
-| --- | --- |
-| Fabio Cezare Almeida | RM572642 |
-| Guilherme Zanfolim Nunes Farias | RM570983 |
-| Jaime Ringel | RM562044 |
-| Lucas Monteiro Dias da Costa | RM571388 |
-| Mateus Magalhães Romão de Moraes |
-
-## Links
-
-- **API no Render:** https://vagaviva-api.onrender.com
-- **Vídeo (YouTube, não listado):** `[COLOCAR O LINK DO VÍDEO]`
-- **API de IA (Python/Flask):** http
-
-No plano gratuito do Render, depois eira requisição pode levar até 2minutos para responder.
+No plano gratuito do Render, serviços podem ficar inativos após um período sem uso. A primeira requisição pode demorar para acordá-los.
 
 ## Tecnologias
 
-Java 21, Spring Boot 3.3, JDBC puro taSource` (sem JPA, Hibernate ou
-Spring Data), Oracle, Bean ValidatioDocker e Render.
+- Java 21 e Spring Boot 3.3.5
+- JDBC com `PreparedStatement` e `DataSource` (sem JPA, Hibernate ou Spring Data)
+- Oracle Database
+- Bean Validation e ModelMapper
+- JWT para autenticação, com senhas protegidas por BCrypt
+- Maven, Docker e Render
+- Serviço de previsão de risco em Python/Flask
 
-## Estrutura
+## Organização do código
 
 ```text
 src/main/java/br/com/fiap/vagaviva
-├── model        Entidades do domínio e regra de ordem da fila
-├── dao          Acesso ao Oracle co
-├── dto          Entrada (com validações) e saída da API
-├── service      Regras de negócio
-├── controller   Rotas REST e status HTTP
-├── client       Chamada à API de IA
+├── model        Entidades do domínio e estados
+├── dao          Consultas e gravações no Oracle via JDBC
+├── dto          Formatos de entrada e saída da API
+├── service      Regras de negócio e transações
+├── controller   Rotas REST
+├── client       Comunicação com a API de IA
+├── config       Autenticação, CORS e configurações
 ├── exception    Exceções do domínio
-├── handler      Erros em JSON padronizado
-└── config       CORS, ModelMapper e
-database/        Scripts SQL do banco
+└── handler      Tratamento padronizado de erros
+
+database/        Scripts de criação, demonstração e migração do Oracle
 ```
 
-## Como rodar
+## Como executar localmente
 
-**1. Banco:** no SQL Developer, rodedos.sql` e depois`database/senhas_demo.sql` e `database/dados_demo.sql`.
+### 1. Requisitos
 
-**2. Variáveis de ambiente:** nenhuma senha fica no código.
+- JDK 21
+- Maven
+- Acesso ao Oracle da FIAP ou a um banco Oracle compatível
 
-| Variável | Para que serve |
-| --- | --- |
-| `DB_URL` | Endereço do Oracle: `jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL` |
-| `DB_USER` | Usuário do banco (RM)
-| `DB_PASSWORD` | Senha do banco |                                                                   | `JWT_SECRET` | Segredo dos tokens,
-| `CORS_ORIGINS` | Origens do front, separadas por vírgula |
-| `IA_URL` | Opcional. O padrão é https://vagaviva-ia.onrender.com |
-                                                                                                     **3. Executar:**
-                                                                                                     ```bash
+### 2. Preparar o banco
+
+No SQL Developer, execute `database/VagaViva_BancoDeDados.sql`. **Atenção:** esse script apaga e recria as tabelas e sequences da aplicação, incluindo os dados existentes nelas. Use-o somente quando puder reiniciar o banco de demonstração.
+
+Depois, para preparar os dados de demonstração, execute nesta ordem:
+
+1. `database/senhas_demo.sql`
+2. `database/dados_demo.sql`
+
+O script principal já cria as tabelas de histórico de posição e de ofertas. Para um banco antigo, confira se ele possui essas estruturas e aplique, quando necessário, `database/migracao_historico_posicao_fila.sql` e `database/migracao_reinscricao_lista_espera.sql`.
+
+### 3. Configurar as variáveis
+
+Copie `.env.example` para `.env` e informe os dados do seu ambiente. O arquivo `.env` não deve ser enviado ao Git.
+
+| Variável | Finalidade | Padrão ou exemplo |
+| --- | --- | --- |
+| `DB_URL` | URL JDBC do Oracle | `jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL` |
+| `DB_USER` | Usuário do Oracle, normalmente o RM | — |
+| `DB_PASSWORD` | Senha do Oracle | — |
+| `JWT_SECRET` | Segredo para assinar os tokens; use pelo menos 32 caracteres | — |
+| `IA_URL` | URL do serviço de previsão de risco | `https://vagaviva-ia.onrender.com` |
+| `IA_TIMEOUT_MS` | Tempo limite da chamada à IA, em milissegundos | `2000` |
+| `CORS_ORIGINS` | Origens permitidas para o front, separadas por vírgula | `http://localhost:5173` |
+| `OFERTA_VERIFICACAO_MS` | Intervalo de verificação de ofertas expiradas | `300000` |
+
+Se a IA estiver indisponível ou exceder o tempo limite, a consulta ainda pode ser criada com risco `NAO_CALCULADO`.
+
+### 4. Iniciar
+
+No IntelliJ ou VS Code, abra `VagaVivaApplication.java` e use **Run/Executar**. No terminal, também é possível iniciar com:
+
+```bash
 mvn spring-boot:run
 ```
-                                                                                                     Ou com Docker:
-                                                                                                     ```bash
+
+A API usa a porta `8080` por padrão. A rota raiz `GET /` retorna o estado do serviço.
+
+### Executar com Docker
+
+```bash
 docker build -t vagaviva-api .
-docker run -p 8080:8080 -e DB_URL=... -e DB_USER=... -e DB_PASSWORD=... -e JWT_SECRET=... vagaviva-api
-```                                                                                                  
-A API sobe em `http://localhost:8080` e responde `{"api":"Vaga Viva","status":"ok",...}`.            
-**4. Testar:** importe `insomnia_vagaviva.json` no Insomnia, preencha a variável `senha` do ambiente com a senha de demonstração, faça o ole o `token` na variável `token`. Ocomando `mvn test` roda os testes das regras, sem banco.
+docker run --rm -p 8080:8080 \
+  -e DB_URL="$DB_URL" \
+  -e DB_USER="$DB_USER" \
+  -e DB_PASSWORD="$DB_PASSWORD" \
+  -e JWT_SECRET="$JWT_SECRET" \
+  -e IA_URL="${IA_URL:-https://vagaviva-ia.onrender.com}" \
+  vagaviva-api
+```
 
-## Deploy
+## Autenticação
 
-Web Service no Render, a partir do `Dockerfile` multi-stage da raiz, com as variáveis acima cadastradas no painel do serviço.
+As rotas internas exigem `Authorization: Bearer <token>`. Obtenha o token por `POST /auth/login`. As rotas públicas são a raiz `/`, as rotas de login, ativação e consulta de convite, além das rotas sob `/publico/`.
 
-## Endpoints
+O perfil `GESTAO` pode administrar os usuários da equipe. As rotas públicas para pacientes usam um token aleatório no link e não exigem login.
 
-As rotas usam JSON. Exceto `GET /`, `POST /auth/login`, `POST /auth/ativar`, `GET
-/auth/convite/{codigo}` e `/publico/ion: Bearer <token>`.
+## Endpoints principais
+
+As rotas recebem e devolvem JSON. Datas usam `AAAA-MM-DD`; data e hora usam `AAAA-MM-DDTHH:mm:ss`.
 
 | Recurso | Rotas |
 | --- | --- |
-| Login | `POST /auth/login` · `GET /auth/me` · `POST /auth/logout` |
-| Equipe | `/usuarios` e `/usuarios/{id}` (perfil GESTAO) |
-| Unidades | `/unidades` e `/unidades/{id}` · `GET /unidades/{id}/lista-espera` e `/profissionais` |
-| Especialidades | `/especialidades`
-| Profissionais | `/profissionais` e `/profissionais/{id}` · `GET /profissionais/{id}/consultas` |
-| Pacientes | `/pacientes` e `/pacientes/{id}` · `GET/POST /pacientes/{id}/consultas` · `GET /pacientes/{id}/lista-espera` |
-| Consultas | `GET /consultas` · `GET/PUT/DELETE /consultas/{id}` · `PATCH /consultas/{id}/confirmar`/cancelar`, `/liberar` e `/presenca| Lista de espera | `/lista-espera` CH /lista-espera/{id}/aceitar` e`/recusar` |
-| Painel | `GET /painel` |
-| Paciente, sem login | `/publico/consultas/{token}` e `/publico/fila/{token}` |                    
-As rotas completas, os exemplos de JSON, as regras de negócio, as validações e os acessos de        demonstração estão na documentação tentrega.
-                                                                                                    ## Regra de negócio principal
+| Saúde da API | `GET /` |
+| Autenticação | `POST /auth/login` · `GET /auth/me` · `POST /auth/logout` · `GET /auth/convite/{codigo}` · `POST /auth/ativar` |
+| Usuários da equipe | `/usuarios` e `/usuarios/{id}`; ações de convite, desativação e reativação (perfil `GESTAO`) |
+| Unidades | CRUD em `/unidades` · `GET/POST /unidades/{id}/lista-espera` · `GET /unidades/{id}/profissionais` |
+| Especialidades | CRUD em `/especialidades` |
+| Profissionais | CRUD em `/profissionais` · consultas e horários livres em `/profissionais/{id}/consultas` e `/profissionais/{id}/horarios-livres?data=AAAA-MM-DD` |
+| Pacientes | CRUD em `/pacientes` · busca por consultas e fila · agendamento em `/pacientes/{id}/consultas` |
+| Consultas | CRUD em `/consultas` · confirmação, cancelamento, liberação, presença e explicação de risco em `/consultas/{id}/...` |
+| Lista de espera | CRUD em `/lista-espera` · classes em `/lista-espera/classes` · aceitar e recusar ofertas |
+| Painel | `GET /painel?unidade=1&inicio=AAAA-MM-DD&fim=AAAA-MM-DD` |
+| Área pública do paciente | `/publico/consultas/{token}`, `/publico/fila/{token}` e ações correspondentes |
 
-Um profissional não pode ter duas consultas no mesmo horário (409). Quando uma consulta é cancelada, a vaga é oferecida ao próximo paciente compatível da fila, na mesma transação JDBC. O risco de falta sorienta o contato: a IA nunca cancel
-                                                                                                    ## Erros
+Para criar uma consulta, use `POST /pacientes/{id}/consultas`. Para consultar horários livres, use `GET /profissionais/{id}/horarios-livres?data=AAAA-MM-DD`.
 
-Todo erro volta em JSON, sem stack trace e sem SQL, com `status`, `erro`, `mensagem`, `caminho`, `timestamp` e `campos`.
-                                                                                                    | Situação | Status |
-| --- | --- |                                                                                       | Dados inválidos ou JSON malformado
-| Sem token ou token expirado | 401 |                                                               | Perfil sem permissão | 403 |
-| Id ou rota inexistente | 404 |
-| Método não suportado | 405 |                                                                      | Regra de negócio violada ou regist
-| Tentativas demais de login | 429 |
-| Erro inesperado | 500 |                                                                           
-## Uso de IA generativa                                                                             
-O grupo usou o Claude (Anthropic) como apoio para revisar o código, explicar erros e organizar a    documentação. Todo o código foi revios integrantes.
+### Fluxo de devolução de vaga
 
-## Limitações do MVP                                                                                
-A API gera os convites e os links do paciente, mas não envia e-mail, WhatsApp ou SMS: o envio é feito pela equipe.
-
-vagaviva-front/README.md                                                                            
-# Vaga Viva                                                                                         
-Front-end da **Vaga Viva**, solução da Global Solution 2026/2 (tema CitizenTech) da FIAP, turma 1TDS
-## Objetivo                                                                                         
-Reduzir o desperdício de consultas no SUS. A Vaga Viva prevê quais consultas têm mais chance de falta, ajuda a recepção a priorizar o contato e, quando uma vaga é devolvida, oferece o horário ao próximo paciente compatível da lista de espencela nem nega uma consulta.
-
-Este projeto é a interface: todos os dados que mudam vêm da API REST em Java, por meio da Fetch API.
-
-## Tecnologias
-
-- React 19, Vite 8 e TypeScript
-- Tailwind CSS 4
-- React Router 7
-- React Hook Form
-- Fetch API, sem Axios nem outra biblioteca de requisições
-
-## Estrutura de pastas
-
-```text
-src/
-├── assets/       Fotos dos integrantes
-├── components/   Componentes reutilizáveis (cabeçalhos, formulários, selos, modal)
-├── context/      Sessão do usuário
-├── data/         Conteúdo fixo (integrantes, perguntas, municípios)
-├── hooks/        useAsync e useRelo
-├── pages/        Páginas institucionais e páginas da solução
-├── routes/       Rotas e proteção por perfil
-├── services/     Chamadas à API (http.ts e api.ts)
-├── types/        Tipos dos dados da
-└── utils/        Formatação de datas, telefones e valores
-```
-
-## Rotas
-
-| Tipo | Rotas |
+| Método e rota | Resultado |
 | --- | --- |
-| Institucionais | `/`, `/integranteto` |
-| Acesso | `/login`, `/primeiro-acesso` |
-| Solução, com login | `/agenda`, `/consultas/nova`, `/consultas/:id`, `/pacientes`, `/lista-espera`, `/painel`, `/admin/equipe` |
-| Paciente, com link | `/celular/:to
+| `PATCH /consultas/{id}/cancelar` | Devolve a vaga e tenta oferecê-la ao próximo pedido compatível |
+| `PATCH /consultas/{id}/liberar` | A recepção devolve uma vaga não confirmada a menos de 24 horas da consulta |
+| `PATCH /lista-espera/{id}/aceitar` | A consulta oferecida passa ao paciente e fica confirmada |
+| `PATCH /lista-espera/{id}/recusar` | O pedido permanece na fila e a vaga pode ser oferecida ao próximo |
+| `GET /publico/fila/{token}` | Consulta pública da posição, etapa e eventual oferta |
 
-## Integrantes
+O cancelamento e a tentativa de oferta são feitos na mesma transação. Se não houver pedido compatível, a resposta da ação traz `oferta: null`.
 
-| Nome | RM | Turma | GitHub | Linke
-| --- | --- | --- | --- | --- |
-| Fabio Cezare Almeida | 572642 | 1TDSPV | [FabioCAlmeida](https://github.com/FabioCAlmeida) | [Perfil](https://www.linkedin.com/in/fabio-cezare-almeida-4b448a408) |
-| Guilherme Zanfolim Nunes Farias | 570983 | 1TDSPV | [zanfolim07](https://github.com/zanfolim07) |
-[Perfil](https://www.linkedin.com/in) |
-| Jaime Ringel | 562044 | 1TDSPV | [jaimeringel004](https://github.com/jaimeringel004) |
-[Perfil](https://www.linkedin.com/in
-| Lucas Monteiro Dias da Costa | 571388 | 1TDSPV | [monteiroo5](https://github.com/monteiroo5) | [Perfil](https://www.linkedin.com/in/lucas-monteiro-1110703b5/) |
-| Mateus Magalhães Romão de Moraes | 573371 | 1TDSPV | [MagalhaesMatheus007](https://github.com/MagalhaesMatheus007) |
-[Perfil](https://www.linkedin.com/in
+## Regras de negócio principais
 
-## Como executar
+- Um profissional não pode ter duas consultas ativas no mesmo horário. Consultas canceladas ou liberadas não bloqueiam o horário.
+- A data do agendamento deve ser futura e o profissional precisa atender a especialidade selecionada.
+- O risco de falta é informativo: não cancela nem impede consultas.
+- A IA estima o risco com base nos dados da consulta e no histórico do paciente. Se estiver indisponível, o agendamento continua com risco `NAO_CALCULADO`.
+- A vaga devolvida é oferecida a um paciente compatível com unidade e especialidade; a preferência por profissional e a disponibilidade para vaga no mesmo dia também são consideradas.
+- A fila prioriza prazo legal, classe de risco, tempo de espera e critérios de desempate definidos pelo projeto.
+- Um paciente não pode ter dois pedidos ativos para a mesma especialidade, mas pode voltar à fila após um pedido atendido ou desistido.
 
-Requer Node.js 20 ou superior.
+## Respostas de erro
 
-```bash
-npm install
-cp .env.example .env
-npm run dev
-```
+Os erros seguem um formato JSON comum com `status`, `erro`, `mensagem`, `caminho`, `timestamp` e `campos`.
 
-No Windows (PowerShell), troque o `cp` por `Copy-Item .env.example .env`. No arquivo `.env`, defina `VITE_API_URL` com o endereço da API. A aplicação abre em `http://localhost:5173`.
+| Situação | HTTP |
+| --- | ---: |
+| Corpo inválido ou campos obrigatórios ausentes | 400 |
+| Token ausente ou inválido | 401 |
+| Perfil sem permissão | 403 |
+| Recurso não encontrado | 404 |
+| Método não permitido na rota | 405 |
+| Regra de negócio violada ou conflito de horário | 409 |
+| Muitas tentativas de login | 429 |
+| Falha inesperada | 500 |
 
-Para gerar a versão de produção: `npm run build`.
+## Insomnia
 
-## Links
+Importe `insomnia_vagaviva.json` no Insomnia. Configure as variáveis do ambiente, faça login para obter o token e use-o como Bearer Token nas rotas protegidas. Os exemplos cobrem consultas, pacientes, fila, painel e erros comuns.
 
-- **GitHub:** tps://github.com/zanfolim07/vagaviva-api.git
-- **Vercel:** 
-- **API Java (Render):** https://vagaviva-api.onrender.com
-- **Vídeo no YouTube:** 
+## Limitações do MVP
+
+- O sistema gera convites, mas não envia e-mail, WhatsApp ou SMS automaticamente; o contato é feito pela equipe.
+- A operação de aceitar uma oferta transfere a consulta devolvida para o novo paciente. O histórico de ofertas é mantido separadamente no banco.
