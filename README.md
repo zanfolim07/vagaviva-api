@@ -114,6 +114,15 @@ As rotas internas exigem `Authorization: Bearer <token>`. Obtenha o token por `P
 
 O perfil `GESTAO` pode administrar os usuários da equipe. As rotas públicas para pacientes usam um token aleatório no link e não exigem login.
 
+Para entrar no ambiente de demonstração, execute `database/senhas_demo.sql` e use uma destas contas:
+
+| Perfil | E-mail | Senha de demonstração |
+| --- | --- | --- |
+| Gestão | `marcos.andrade@saude.sp.gov.br` | `vagaviva2026` |
+| Recepção | `regina.costa@saude.sp.gov.br` | `vagaviva2026` |
+
+Essas credenciais são somente para demonstração. Não as reutilize em ambientes reais.
+
 ## Endpoints principais
 
 As rotas recebem e devolvem JSON. Datas usam `AAAA-MM-DD`; data e hora usam `AAAA-MM-DDTHH:mm:ss`.
