@@ -80,7 +80,7 @@ Copie `.env.example` para `.env` e informe os dados do seu ambiente. O arquivo `
 | `JWT_SECRET` | Segredo para assinar os tokens; use pelo menos 32 caracteres | — |
 | `IA_URL` | URL do serviço de previsão de risco | `https://vagaviva-ia.onrender.com` |
 | `IA_TIMEOUT_MS` | Tempo limite da chamada à IA, em milissegundos | `2000` |
-| `CORS_ORIGINS` | Origens permitidas para o front, separadas por vírgula | `http://localhost:5173` |
+| `CORS_ORIGINS` | Origens permitidas para o front, separadas por vírgula | `http://localhost:5173, https://vagaviva-front.vercel.app` |
 | `OFERTA_VERIFICACAO_MS` | Intervalo de verificação de ofertas expiradas | `300000` |
 
 Se a IA estiver indisponível ou exceder o tempo limite, a consulta ainda pode ser criada com risco `NAO_CALCULADO`.
